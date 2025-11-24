@@ -3,9 +3,9 @@ kind: Task
 metadata:
     name: cleanup
 spec:
-  descripcion: This task will clean up a workspace by deleting the files
+  description: This task will clean up a workspace by deleting the files
   workspaces:
-    name: source
+    - name: source
   steps:
     - name: remove
       image: "alpine:3"
@@ -41,7 +41,7 @@ metadata:
 spec:
   description: This task will run unitesting
   workspaces:
-    name: source
+    - name: source
   params:
     - name: args
       description: Arguments to pass to nose
