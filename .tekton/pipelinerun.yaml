@@ -1,0 +1,29 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  name: output-manual-run
+  namespace: sn-labs-mdparedes
+spec:
+  pipelineRef:
+    name: output
+
+  taskRunTemplate:
+    serviceAccountName: pipeline
+
+    podTemplate:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000770000
+        fsGroup: 1000770000
+        seccompProfile:
+          type: RuntimeDefault
+
+  params:
+    - name: build-image
+      value: "image-registry.openshift-image-registry.svc:5000/sn-labs-mdparedes/tekton-lab:latest"
+    - name: app-name
+      value: "cicd-app"
+
+  workspaces:
+    - name: output
+      emptyDir: {}
