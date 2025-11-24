@@ -13,6 +13,13 @@ spec:
         - name: WORKSPACE_SOURCE_PATH
           value: "$(workspaces.source.path)"
       workingDir: "$(workspaces.source.path)"
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+        capabilities:
+          drop:
+            - ALL
       script: |
         #!/usr/bin/env sh
         set -eu
@@ -48,6 +55,13 @@ spec:
     - name: nosetests
       image: "python:3.9-slim"
       workingDir: "$(workspaces.source.path)"
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+        capabilities:
+          drop:
+            - ALL
       script: |
         #!/bin/bash
         set -e
